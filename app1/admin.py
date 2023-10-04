@@ -1,21 +1,19 @@
 from django.contrib import admin
 
-from .models import Employee, Event, EmailTemplate, EmailLog
+from .models import Employee, EmailLog, Event
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display=['name',
-                        'email']
+    list_display=['id','name','email']
+                        
     
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display=['employee', 'event_type', 'event_date']   
+    list_display=['id','employee', 'event_type', 'event_date','subject', 'body']   
 
 
-@admin.register(EmailTemplate)
-class EmailTemplateAdmin(admin.ModelAdmin):
-    list_display=['employee','event_type','subject', 'body']     
+     
 
 
 @admin.register(EmailLog)

@@ -1,7 +1,7 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 from django.core.mail import send_mail
 import datetime
-from .models import Event, Employee, EmailTemplate, EmailLog
+from .models import Event, Employee, EmailLog
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -19,7 +19,7 @@ def get_events(request):
     current_month = current_date.month
     current_day = current_date.day
 
-    event1 = Employee.objects.filter(event__event_date__month=current_month, event__event_date__day=current_day).values('id', 'name', 'email', 'event__event_type', 'emailtemplate__subject', 'emailtemplate__body')
+    event1 = Employee.objects.filter(event__event_date__month=current_month, event__event_date__day=current_day).values('id', 'name', 'email', 'event__event_type', 'event__subject', 'event__body')
    
    
     
@@ -29,14 +29,9 @@ def get_events(request):
             name=event1[i]['name']
             email=event1[i]['email']
             event_event_type=event1[i]['event__event_type']
-            subject=event1[i]['emailtemplate__subject']
-            message=event1[i]['emailtemplate__body']
-            print(id)
-            print(name)
-            print(email)
-            print(event_event_type)
-            print(subject)
-            print(message)
+            subject=event1[i]['event__subject']
+            message=event1[i]['event__body']
+         
             
             subject = subject
             message = message
